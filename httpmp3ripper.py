@@ -67,7 +67,7 @@ class HTTPProxyServer(proxpy.HTTPProxyServer, threading.Thread):
 	"""accepts client connections, deletes all files on shutdown"""
 	def __init__(self, mainwin):
 		threading.Thread.__init__(self)
-		proxpy.HTTPProxyServer.__init__(self, ("127.0.0.1", sys.argv[1]), HTTPProxyHandler)
+		proxpy.HTTPProxyServer.__init__(self, ("127.0.0.1", int(sys.argv[1])), HTTPProxyHandler)
 		self.skip_headers.append("If-")
 		self.tempdir = tempfile.mkdtemp(prefix="httpripper")
 		self.record = True
@@ -124,6 +124,6 @@ if __name__ == "__main__":
 		sys.exit(1)
 
 	#logging.basicConfig(level=logging.DEBUG)
-	server = HTTPProxyServer(("localhost", sys.argv[1]))
+	server = HTTPProxyServer(("127.0.0.1", int(sys.argv[1])))
 	server.serve_forever()
 
